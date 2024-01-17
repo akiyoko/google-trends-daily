@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# https://github.com/qztseng/google-trends-daily/blob/master/gtrend.py
 
 from datetime import datetime, timedelta, date, time
 import pandas as pd

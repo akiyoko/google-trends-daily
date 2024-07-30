@@ -19,6 +19,7 @@ pd.set_option('display.unicode.east_asian_width', True)
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent
 INPUT_DIR = BASE_DIR / "inputs"
+OUTPUT_DIR = BASE_DIR / "outputs"
 
 # データフレームを格納するリスト
 df_trends = []
@@ -72,9 +73,16 @@ for df_trend in df_trends:
     print(f"{max_value=}")
     df = df * (100 / max_value)
 
+# インデックスカラム名を変更
+df.index.names = ['Date']
+
+# TODO: 小数点以下の桁数を6桁に（33.99999999999999、30.00000000000001 などの表示となってしまうため）
+df = df.round(6)
+
 # マージされたデータフレームをCSVに保存
-df.to_csv("merged_df.csv")
+df.to_csv(OUTPUT_DIR / "google_trends.csv")
 
 # グラフを描画
 df.plot()
-plt.show()
+plt.savefig(OUTPUT_DIR / "google_trends.png")
+# plt.show()
